@@ -1,0 +1,85 @@
+package main
+
+import "fmt"
+
+func BinarySearchIterate(v []int, val int) int {
+	var mid int
+	init := 0
+	fim := len(v) - 1
+	for init <= fim {
+
+		mid = (init + fim) / 2
+		if v[mid] == val {
+			fmt.Println("valor: ", v[mid])
+			return mid
+		} else {
+			if val < v[mid] {
+
+				fim = mid - 1
+			} else {
+				init = mid + 1
+			}
+		}
+	}
+	return -1
+}
+
+func BinarySearchRecursive(v []int, val int, init int, fim int) int {
+	var mid int
+	mid = (init + fim) / 2
+
+	if init == fim && val != v[mid] {
+		return -1
+	}
+
+	if val == v[mid] {
+		fmt.Println("valor: ", v[mid])
+		return mid
+	} else if val < v[mid] {
+		return BinarySearchRecursive(v, val, init, mid-1)
+	} else {
+		return BinarySearchRecursive(v, val, mid+1, fim)
+	}
+}
+
+type ArrayList struct {
+	values   []int
+	inserted int
+}
+
+//func NewArrayList(values) *ArrayList {
+//}
+
+func Reverse(list *ArrayList) error {
+	if list.inserted == 0 {
+		return nil
+	}
+	i := 0
+	j := list.inserted - 1
+	for i <= j {
+		list.values[i], list.values[j] = list.values[j], list.values[i]
+		i++
+		j--
+	}
+	return nil
+}
+
+func main() {
+	v := []int{1, 2, 3, 4, 5, 6, 7, 8}
+	result := BinarySearchIterate(v, 3)
+	fmt.Println(result)
+
+	fmt.Println("======================")
+
+	result = BinarySearchRecursive(v, 3, 0, 7)
+	fmt.Println(result)
+
+	var list ArrayList
+	list.values = v
+	list.inserted = len(v)
+
+	fmt.Println(v)
+	Reverse(&list)
+	fmt.Println(list.values)
+
+}
