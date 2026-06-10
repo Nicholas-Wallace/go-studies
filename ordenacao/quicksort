@@ -1,0 +1,25 @@
+package sort
+
+func QuickSort(v []int, ini int, fim int)  {
+	if ini < fim {
+		idxPivot := Partition(v, ini, fim)
+		QuickSort(v, ini, idxPivot -1)
+		QuickSort(v, idxPivot, fim)
+	}
+}
+
+func Partition(v []int, ini int, fim int)  {
+	pivot := fim
+	idxPivot := ini
+	for i := ini; i < fim; i++{
+		if  v[pivot] < v[i]{
+			v[i], v[idxPivot] = v[idxPivot], v[i] 
+			idxPivot++
+		}
+	}
+	v[pivot], v[idxPivot] = v[idxPivot], v[pivot]
+	fmt.Println("partition: " ,v[ini:fim])
+	fmt.Println(v)
+	fmt.Println("-------------")
+	return idxPivot
+}
